@@ -1,0 +1,122 @@
+{% extends 'app/base.html'%}
+{% block contenido %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/escrip.css' %}">
+{% block js %}
+  <script>
+    function Href(){
+    document.getElementById('enlace').innerHTML="Volver a casa"
+    document.getElementById('enlace').href="{% url 'core:Index' %}"
+    document.getElementById("Clase").className = "VERTexto";
+  
+    }
+  </script>
+
+  <script>
+    function Clase(){
+    document.getElementById("verTextoUWU").className = "ver";
+    }
+  </script>
+
+  <script>
+    function Clase2(){
+    document.getElementById("VerBR").className = "verBR";
+    }
+  </script>
+
+   <script>
+    function invisible(){
+    document.getElementById("invis").className = "Invisible";
+    }
+  </script>
+   <script>
+    function invisible2(){
+    document.getElementById("ver2").className = "verBR";
+    }
+  </script>
+
+  <script>
+    function Clase3(){
+    document.getElementById("ver3").className = "verBR";
+    }
+  </script>
+  
+{% endblock %}
+
+
+  
+
+<center>
+  <h1>Finalización de la compra</h1>
+</center>
+
+  
+
+<img id="Clase" class="Invisible" src="{% static 'img/visto2.png' %}" alt="Clase" style="width: 400px;" >
+
+<br><br>
+<h2 id="verTextoUWU" class="Invisible" style="text-align: center;" > Tu Compra ha sido realizada con éxito</h2>
+<br>
+<br>
+<h5 id="ver3" class="Invisible" style="text-align: center; font-size: 20px;" >Espere a que se genere su boleta automáticamente , esto puede tardar unos minutos.</h5>
+<br>
+<br>
+<br><br>
+<div id="ver2" class="Invisible">
+  <a id="enlace"   style="font-size: 30px;" ></a>
+</div>
+
+
+
+
+
+  <div class="d-flex justify-content-center">
+    <a class="btn btn-succes float-left loginbutton" style="padding-left: 50px;padding-right: 50px;padding-top: 30px;padding-bottom : 30px;"  onclick="Href();Clase();invisible();Clase3();" href="{% url 'core:pdf-download' %}"><p id="invis">Realizar la compra</p></a>
+  </div>
+
+
+    <main>
+        <div class="container">
+    
+          
+    
+          <!--Section: Products v.3-->
+          <section class="text-center mb-4">
+    
+            <!--Grid row-->
+            <div class="row wow fadeIn">
+                
+                
+                
+
+                
+                
+                   
+                        
+                       
+                      
+                        
+                       
+
+                        </div>
+                        <form>
+                 
+                  
+
+                   </div>
+                 </div>
+                  
+                  
+                </form>
+                <div class="verBR" style="padding: 90px;"></div>
+              </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+
+
+
+{% endblock %}

@@ -1,0 +1,15 @@
+
+{% extends 'app/base.html'%}
+{% load static  %}
+{% block contenido %}
+
+<main>
+
+    <div class="container">
+        <embed id='pdf' src="{% static 'pdf/Manual_de_Usuario.pdf' %}" width="1100" height="850"></embed>
+    </div>
+    
+
+</main>
+
+{% endblock %}

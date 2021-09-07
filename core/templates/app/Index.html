@@ -1,0 +1,261 @@
+{% load cart_template_tags %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	
+	
+
+	
+
+
+	<title>Ferme - Tu ferretería</title>
+	<link rel="shortcut icon" type="image/png" href="img/nfavicon.png">
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Realizamos asesorías en Empleabilidad, para que mejores tus posibilidades de encontrar trabajo.">
+    <meta name="keywords" content="Asesoria, Empleabilidad, Buscar trabajo, Curriculum Vitae, Asesoria en Entrevista">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/39b538c475.js" crossorigin="anonymous"></script>
+    {% load static %}
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base1.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/letra.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/responsive_navbar.css' %}">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    
+	
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-173704931-1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-173704931-1');
+	</script>
+
+{% block js %}
+<script>
+	function Confirmar(){
+		Swal.fire({
+			"title":"¿Estás seguro de cerrar sesión?",
+			"text":"Una vez cerrada la sesión podrá volver a iniciar.",
+			"icon":"question",
+			"showCancelButton":true,
+			"cancelButtonText":"No, cancelar.",
+			"confirmButtonText":"Sí , cerrar sesión",
+			"confirmButtonColor": "red",
+
+		})
+		.then(function(result){
+			if(result.isConfirmed){
+				window.location.href = "{% url 'logout'%}"
+			}
+
+		})
+	}
+</script>
+{% endblock %}
+
+</head>
+<body>
+
+	<input class="menu-icon" type="checkbox" id="menu-icon" name="menu-icon" style="z-index: 99999;"/>
+	<label for="menu-icon"></label>
+	<nav class="nav" style="background: black;"> 		
+		<ul class="pt-5" style="background: black; z-index: 9999;">
+			<li><a style="font-size: 45px;" href="#">Inicio</a></li>
+			<li><a style="font-size: 40px;" href="{% url 'core:listado-producto' %}">Productos</a></li>
+			<li><a href="#">Contact</a></li>
+		</ul>
+	</nav>
+	<section>
+		<header id="nav">
+			
+			<div class="navbar fixed-top" style="background-color: white; z-index: 1;" >
+			
+				<div class="owo">
+					{% if user.is_authenticated %}
+						<style>
+						@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+						</style>
+						<a href="#"  onclick="Confirmar()" class="anavbar"><i class="fas fa-user-times"><small style="font-size: 30px; font-family: 'Staatliches', cursive;"> {{ user.first_name}}</small></i></a>	
+						
+						{% else %}
+						<a href="{% url 'login' %}" class="anavbar"><i class="fas fa-user-tie"></i></a>
+						{% endif %}
+				</div>
+				<img class="img" src="{% static 'img/logo4.png' %}" alt="Mi logo" width="280">
+				
+				<nav>
+					<div class="navbar">
+						<a class="active" href="#"><i class="fa fa-fw fa-home"></i> Inicio</a> 
+						{% if perms.user.add_user %} 
+							{% if perms.user.change_user %} 
+								{% if perms.user.view_user %} 
+									{% if perms.user.delete_user %} 
+									<div style="display: none;">
+										<a href="#about"><i class="fa fa-fw fa-search"></i> Nuestra propuesta</a> 
+										<a href="#servicios"><i class="fa fa-fw fa-envelope"></i> Servicios</a> 
+										<a href="#contacto"><i class="fa fa-fw fa-user"></i> Contacto</a>
+									</div>
+									
+                        			{% endif %}
+								{% endif %}
+							{% endif %}
+							{% else %}
+										<a href="#about"><i class="fa fa-fw fa-search"></i> Nuestra propuesta</a> 
+										<a href="#servicios"><i class="fa fa-fw fa-envelope"></i> Servicios</a> 
+										<a href="#contacto"><i class="fa fa-fw fa-user"></i> Contacto</a>
+						{% endif %}
+						
+
+						
+						<a class="active" href="{% url 'core:listado-producto' %}"><i class="fas fa-shopping-bag"></i> Productos</a> 
+                        {% if perms.core.view_producto %} 									
+							<a href="{% url 'core:listar-productos' %}"><i class="fas fa-tools"> </i> <u> Gestionar Productos</u></a>									
+						{% endif %}		
+						
+						<!--LISTADO DE USUARIOS PERMISOS-->
+						
+								{% if perms.user.view_user %} 
+									
+									<a href="{% url 'core:listado-personas' %}"><i class="fas fa-users"> </i> <u> Gestionar Usuarios</u></a>
+                        			{% endif %}
+							
+						<!--LISTADO DE USUARIOS PERMISOS-->
+
+<!--LISTADO DE USUARIOS GRUPOS-->
+						{% if perms.auth.add_group %} 
+							{% if perms.auth.change_group %} 
+								{% if perms.auth.view_group %} 
+									{% if perms.auth.delete_group %} 
+									<a href="{% url 'core:listado-groups' %}"><i class="fas fa-layer-group"></i> <u> Gestionar Permisos</u></a>
+                        			{% endif %}
+								{% endif %}
+							{% endif %}
+						{% endif %}
+<!--LISTADO DE USUARIOS GRUPOS-->
+					
+							
+							<a href="{% url 'core:carrito' %}" class="anavbar"><span style="font-size: 15px; background-color: red; padding-right: 5px;padding-left: 5px; color: white;"> {{request.user | cart_item_count }} </span><i class="fas fa-shopping-cart"></i><b class="textonav" style="font-size: 15px;">Carrito de compras</b></i></a>	
+							
+						  
+						
+						
+						{% if user.is_authenticated %}
+						<a href="#"  onclick="Confirmar()" class="anavbar"><i class="fas fa-user-times"></i><b class="textonav">Cerrar sesión</b></i></a>	
+						<a href="#" >@{{ user.first_name}}</a>
+						{% else %}
+						<a href="{% url 'login' %}" class="anavbar"><i class="fas fa-user-tie"></i><b class="textonav">Iniciar sesión</b></i></a>
+						{% endif %}
+					</div>
+				</nav>
+			</div>
+		</header>
+		{% if messages %}
+			{% for m in messages %}
+				<script>
+					Swal.fire({
+						"title": "{{m}}",
+						"position":"top-end",	
+						"showConfirmButton": false,
+						"timer": 1000,
+						"icon": "success",
+						
+					})
+				</script>
+			{% endfor %}
+		{% endif %}
+	</section>
+	
+	<section id="portada" style="background: url(https://i.imgur.com/SkMl05T.jpg) no-repeat center center fixed;
+	background-size: cover;
+	margin-top: 0;
+	height: 800px;
+	justify-content: center;
+	align-content: center;">	
+		<div style="background-image: none;">
+			<h1 class="titulo"><strong><img src="{% static 'img/titulo.png' %}" width="280" alt="">
+			</strong></h1>
+		</div>
+	</section>
+
+	<hr id="about">
+
+	<section class="sobre">
+		<div>
+			<center><img src="{% static 'img/propuesta.png' %}" alt="Icono de propuesta"></center>
+			<h2 class="">Nuestra Propuesta</h2><br>
+			<p class="">Queremos que las personas y las organizaciones descansen sus preocupaciones con nosotros. Somos una ferretería especializada en proveer a personas el   <strong>material necesario</strong>, brindando herramientas que mejoren sus posibilidades de insertarse rápidamente en el mercado laboral. A su vez, ofrecemos a organizaciones servicios de <strong>Despacho y Selección</strong> completos.
+			Como ferretería, nos comprometemos a darles las herramientas a cada individuo para que pueda ser la mejor versión de sí mismo, como a su vez, proveer a las empresas de la mejor atención disponible.</p>
+		</div>
+	</section>
+
+	<hr id="servicios">
+
+	<section>
+		<h2 class="tiserv">Servicios</h2>
+		<div class="services">
+			<div class="serv">
+				<img src="{% static 'img/asesoria.png' %}" alt="Icono Asesoria Empleabilidad">
+				<h3>Confiabilidad</h3>
+				<p>Tenemos una confianza increíble con nuestra empleabilidad. Entregamos un servicio en excelencia de condiciones para nuestros diferentes servicios.</p>
+			</div>
+				
+			<div class="serv">
+				<img src="{% static 'img/perfil.png' %}" alt="Icono Perfiles de Cargo">
+				<h3>Nosotros</h3>
+				<p>Construimos una empresa a partir del cargo que puedan ajustarse a los requerimientos necesarios para que esta salga adelante, incorporando a su vez, los elementos propios que hacen única a esta organización, con el fin de crear la compañía perfecta tanto para nuestros empleados como clientes.</p>
+			</div>
+				
+			
+			<div class="serv">
+				<img src="{% static 'img/productos2.png' %}" alt="Icono Productos">
+				<h3>Productos</h3>
+				<p>Para conseguir la satisfacción total de nuestros clientes, ofrecemos una amplia gama de productos, a unos precios muy competitivos, con una alta calidad y máximos niveles de producción.</p>
+			</div>
+		</div>
+	</section>
+	
+	<hr id="contacto">
+
+	<section>
+		<div class="contact">
+			<h2 class="altura">Contacto</h2>
+			
+			<div class="imgtextcont">
+				<div class="cimg">
+					<img src="{% static 'img/iconos/mail.png' %}" alt="Nuestro Correo Electronico">
+				</div>
+				<div class="ctxt">
+					<p>contacto@ferme.cl</p>
+				</div>
+			</div>
+			<div class="imgtextcont">
+				<div class="cimg">
+					<img src="{% static 'img/iconos/whatsapp.png' %}" alt="Nuestro WhatsApp">
+				</div>
+				<div class="ctxt">
+					<p>+56 9 7123 5125</p>
+				</div>
+			</div>
+			<div class="rrss">
+				<a href="#" target="_blank"><img src="{% static 'img/iconos/instagram.png' %}" alt="Enlace a Instagram"></a>
+				<a href="#" target="_blank"><img src="{% static 'img/iconos/linkedin.png' %}" alt="Enlace a LinkedIn"></a>
+				<a href="#" target="_blank"><img src="{% static 'img/iconos/facebook.png' %}" alt="Enlace a Facebook"></a>
+			</div>
+		</div>
+	</section>
+
+	<hr>
+
+	<footer>
+		<br>
+		<h5 style="margin-top : 10px; color :white;"> &copy; Todos los derechos reservados.
+		<p style="text-align: center; "><a  style="color: gray;" href="{% url 'core:manual_de_usuario' %}" >Cómo usar la aplicación</a></p>
+		</h5>
+	</footer>
+	
+
+</body>
+</html>

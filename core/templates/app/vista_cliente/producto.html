@@ -1,0 +1,81 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block contenido %}
+{% load humanize %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
+<main class="mt-5 pt-4">
+    <div class="container dark-grey-text mt-5">
+
+      <!--Grid row-->
+      <div class="row wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-md-6 mb-4">
+         
+          <img src="{{object.imagen.url}}" class="img-fluid" alt="">
+          <div class="center">
+            <p class="lead">
+              <span><b class="lead font-weight-bold">Categoría:</b></span>
+              <a ><span style="background: #FF0048; padding-bottom: 10px;padding-top: 10px;padding-left: 5px;padding-right: 5px;"><b>{{object.categoria | title }}</b></span></a>
+            </p>
+          </div>
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-md-6 mb-4">
+
+          <!--Content-->
+          <div class="p-4">
+
+            <p class="lead font-weight-bold">{{object.nombre}}</p>
+
+            <p class="lead">
+              <span><b class="lead font-weight-bold">Precio:</b></span>
+              <span>${{object.precio | intcomma}}</span>
+            </p>
+            
+            <p class="lead">
+              <span><b class="lead font-weight-bold">Stock:</b></span>
+
+              {% if object.stock > object.stockCritico %}
+              <span style="background: darkgreen; padding: 5px; border-radius: 30%; color: white;">{{object.stock}}</span>
+              {% elif 0 >= object.stock %}
+              <span style="background: darkred; padding: 5px; border-radius: 30%; color: white;">{{object.stock}}</span>
+              {% else %}
+              <span style="background: goldenrod; padding: 5px; border-radius: 30%; color: white; ">{{object.stock}}</span>
+              {% endif %}
+            </p>
+
+            <p class="lead font-weight-bold">Descripción</p>
+
+            <p>{{object.descripcion | title}}</p>
+
+            <form class="d-flex justify-content-left">
+             
+
+              {% if object.stock > 0 %}
+              <a href="{{ object.get_add_to_cart_url }}" class="btn btn-succes float-right loginbutton " style="padding: 20px; font-size: 30px;"><i class="fas fa-shopping-cart"></i></a>
+             
+              {% else %}
+                    <span style="background: darkred; padding: 20px; font-size: 30px;"><b style="color: white;">Sin Stock</b></span>
+              {% endif %}
+              
+             
+              
+            </form>
+          
+          </div>
+          <!--Content-->
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <br><br><br><br><br><br><br><br>
+      
+  </main>
+
+  {% endblock %}
+

@@ -1,0 +1,47 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block contenido %}
+{% load humanize %}
+
+{% load crispy_forms_tags %}
+  
+
+
+
+
+
+
+
+
+<main>
+    
+    <div class="container">
+
+      
+
+      <!--Section: Products v.3-->
+      
+      <section class="text-center mb-4">
+
+        <!--Grid row-->
+        <br><br>
+        <div class="row wow fadeIn">
+         <!--Grid column-->
+        
+        
+         {% for i in users %}
+         {{ i.first_name }}
+     {% endfor %}
+     
+     {% for i in groups %}
+         {{ i.name }}
+     {% endfor %}
+        
+          </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+{% endblock %}

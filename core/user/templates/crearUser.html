@@ -1,0 +1,39 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block contenido %}
+
+
+
+
+    {% load crispy_forms_tags %}
+    <a href="{% url 'core:Index' %}"><i style="font-size: 40px;" class="fas fa-home"></i> <b style="font-size: 30px;">Volver.</b></a>
+    <div class="container">
+<br><br><br>
+        <div class="row">
+            <div class="col-12 col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h2>Registro de usuario</h2>
+                        <br><br><br>
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            {{ form | crispy}}
+                           
+                            
+                            
+                          
+                            
+                            
+                            
+                            
+
+                            <input type="submit" value="Registrar" class="btn btn-succes float-right loginbutton">   
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br><br><br><br>
+    </div>
+
+{% endblock %}

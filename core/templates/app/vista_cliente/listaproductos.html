@@ -1,0 +1,168 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block contenido %}
+{% load humanize %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/MenuProductos.css' %}">
+
+<main>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 search">
+          <form action="" method="GET" style="display:ruby;">
+            <div id="custom-search-input" > 
+                <div class="input-group col-md-12">
+                  <input type="text" class="form-control" placeholder="Buscar..." name="buscador">
+                  <span class="input-group-list">
+                    <button type="submit" class="btn btn-outline-danger btn-block"><span style="visibility: hidden;">AAAA</span><i class="fas fa-search"></i><span style="visibility: hidden;">AAAA</span></button>
+                  </span>
+                </div>
+            </div>
+    </form>
+          
+   
+<!---------------------FORM ESCONDIDO--------------->
+                        <form action="" method="GET" style="display: none;">
+                          <div id="custom-search-input" > 
+                              <div class="input-group col-md-12">
+                                <input type="text" class="form-control" placeholder="Buscar..." name="categoria">
+                                <span class="input-group-list">
+                                  <button type="submit" class="btn btn-outline-danger btn-block"><span style="visibility: hidden;">AAAA</span><i class="fas fa-search"></i><span style="visibility: hidden;">AAAA</span></button>
+                                </span>
+                              </div>
+                          </div>
+                  </form>
+<!---------------------FIN FORM ESCONDIDO--------------->
+<div class="nav" style="z-index: 12; position: absolute;">
+  <ul class="nav__list">
+      <li  class="nav__menu">categoría<ul class="nav__menu-lists nav__menu--2-lists" >
+        <li onclick="window.location='http://127.0.0.1:8000/listado?categoria=HER'" class="nav__menu-items">Herramientas</li>
+        <li onclick="window.location='http://127.0.0.1:8000/listado?categoria=IND'" class="nav__menu-items">Indumentaria</li>
+        <li onclick="window.location='http://127.0.0.1:8000/listado?categoria=ILU'" class="nav__menu-items">Iluminación</li>
+        <li onclick="window.location='http://127.0.0.1:8000/listado?categoria=MAT'" class="nav__menu-items">Materiales</li>
+        <li onclick="window.location='http://127.0.0.1:8000/listado?categoria=MAD'" class="nav__menu-items">Maderas</li>
+              
+          </ul>
+      </li>
+      
+  </ul>
+  
+</div>
+
+<br><br><br><br>
+
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      
+
+      <br><br><br>
+      
+
+      <!--Section: Products v.3-->
+      <section class="text-center mb-4">
+
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+         <!--Grid column-->
+         {% for p in entity %}
+          <div class="col-lg-3 col-md-6 mb-4">
+
+
+
+
+            {% if p.stock > 0 %}
+            <div style="border-style: groove;"> 
+            <!--Card-->
+            <div class="card" >
+
+              <!--Card image-->
+              <div class="view overlay" >
+               
+                <a href="{{p.get_absolute_url}}"><img src="{{p.imagen.url}}" class="card-img-top"
+                  alt=""></a>
+                <a>
+                  <div class="mask rgba-white-slight"></div>
+                </a>
+              </div>
+              <!--Card image-->
+            <a ><span style="background: red; padding-bottom: 10px;padding-top: 10px;padding-left: 5px;padding-right: 5px;"><b>{{p.categoria }}</b></span></a>
+              <div class="card-body text-center" >
+                <a href="{{p.get_absolute_url}}" class="grey-text">
+                  <h4>{{p.nombre }}</h4><small>{{p.marca}}</small>
+                </a>
+                <h4 class="font-weight-bold blue-text">
+                  <strong>${{p.precio |intcomma }}</strong>
+                </h4>
+              </div>
+              <a href="{{p.get_absolute_url}}" class="btn btn-succes float-right loginbutton " style="font-size: 30px;"><i class="far fa-eye"></i></a>              
+            </div>
+            <!--Card-->      
+          </div>
+            {% else %}
+            <!--Card-->
+            <div style="border-style: groove;"> 
+            <div class="card">
+
+              
+
+              <!--Card image-->
+              <div class="view overlay">
+               
+                <a href="{{p.get_absolute_url}}"><img src="{{p.imagen.url}}" class="card-img-top"
+                  alt=""></a>
+                <a>
+                  <div class="mask rgba-white-slight"></div>
+                </a>
+              </div>
+              <!--Card image-->
+              <a ><span style="background: red; padding-bottom: 10px;padding-top: 10px;padding-left: 5px;padding-right: 5px;">{{p.categoria }}</span></a>
+              <div class="card-body text-center">
+                <a href="" class="grey-text">
+                  <h4>{{p.nombre }}</h4> <small>{{p.marca}}</small>
+                </a>
+                <h4 class="font-weight-bold blue-text">
+                  <strong>${{p.precio |intcomma }}</strong>
+                </h4>
+              </div>
+              <a  class="btn btn-succes float-right loginbutton " style="font-size: 30px; background: red"><span style="background: red;">SIN STOCK</span></a>          
+            </div>
+            <!--Card-->   
+          </div>
+
+          
+            {% endif %}
+                           
+          </div>
+          {% empty%}
+          <div class="container">
+            <h2 class="center">No se encontró ningún producto<h2>
+              <br>
+              <a href="/listado">Volver a buscar</a>
+              
+            
+        
+
+          </div>
+          {% endfor %}
+          </div>
+        </div>
+      </section>
+      
+                  {% include 'app/vista_cliente/paginador.html' %}
+          
+        </ul>
+      </nav>
+      
+    </div>
+  </main>
+
+
+  {% endblock %}
+
+
+
+  

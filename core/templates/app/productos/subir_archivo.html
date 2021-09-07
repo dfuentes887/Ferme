@@ -1,0 +1,55 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block contenido %}
+{% load humanize %}
+
+{% load crispy_forms_tags %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/f0rm.css' %}">
+<main>
+    <div class="container">
+
+      
+
+      <!--Section: Products v.3-->
+      <section class="text-center mb-4">
+
+        <!--Grid row-->
+        <div style="padding: 50px;"> 
+          <h2><b><u>Subir Archivo CSV de Marcas.</u></b></h2>
+        </div>
+                    <div class="col-xs-12">
+                      <div class="center-block">
+                        <div class="card" style="padding:70px; background:#F6F6F6;">
+                        <form action="" method="POST" class="ui form" enctype="multipart/form-data">
+                          {% csrf_token %}
+                          <h3><u>Agregar Marca vía CSV</u> </h3>
+                          <p style="text-align: center;">Nota: Si no es un archivo CSV provocará un error</p>
+                          <br>
+                          
+                          
+                          <label  for="id_archivo"><i class="fas fa-upload"></i></i> Subir archivo CSV</label>
+                         
+                          <br>
+                            {{form.archivo }}
+                            <br><br><br><br>
+                          
+                          
+  
+                          <button type="submit"  > <i class="fas fa-check-circle"></i> Confirmar</button>
+                      </form>
+                    </div>
+                    </div>
+                      </div>
+
+
+                  </div>
+            </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <div style="padding: 80px;"> 
+
+  </div>
+
+{% endblock %}

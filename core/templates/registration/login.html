@@ -1,0 +1,52 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block contenido %}
+
+
+    {% load crispy_forms_tags %}
+    <br><br><br>
+    <div class="container">
+<br><br><br>
+        <div class="row">
+            <div class="col-12 col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h2>Ingresa tus credenciales</h2>
+                        <br><br><br>
+                        <form action="" method="POST">
+                            <i style="font-size: 120px; text-align: center;" class="fas fa-user center"></i>
+                            {% csrf_token %}
+                            
+                            {{ form.username  | as_crispy_field}}
+                            
+                            {{ form.password  | as_crispy_field}}
+
+                            <input type="submit" value="Iniciar sesión" class="btn btn-succes float-right loginbutton">   
+                            <a href="{% url 'core:registro' %}"><input type="button" value="Registrate!" class="btn btn-succes float-left loginbutton">  </a>
+                            <br>
+                            
+                        </form>
+                        
+                    </div>
+                    <a href="{% url 'reset_password' %}"class="btn btn-succes float-left loginbutton">¿Olvidaste tu contraseña?</a>
+                </div>
+                {% if form.errors %}
+    <div class="alert alert-danger alert-dismissible col-12 mx-1" role="alert">
+        <div id="form_errors">
+            {% for key, value in form.errors.items %}
+                <span class="fieldWrapper">
+                    <b>Error</b> :{{ value }}
+                </span>
+            {% endfor %}
+        </div>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+            </div>
+        </div>
+        <br><br><br><br><br><br><br><br><br>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,151 @@
+{% load cart_template_tags %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<title>Ferme - Tu ferretería</title>
+	<link rel="shortcut icon" type="image/png" href="img/nfavicon.png">
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Realizamos asesorías en Empleabilidad, para que mejores tus posibilidades de encontrar trabajo.">
+    <meta name="keywords" content="Asesoria, Empleabilidad, Buscar trabajo, Curriculum Vitae, Asesoria en Entrevista">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/39b538c475.js" crossorigin="anonymous"></script>
+    {% load static %}
+	
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/xlr8.css' %}">
+	
+    <link rel="icon" href="{% static 'img/iconos/Icono.png' %}">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+	
+	
+	
+</head>
+<body>
+	<section>
+		<header id="nav">
+			<div class="navbar">
+				<img class="img" src="{% static 'img/logo4.png' %}" alt="Mi logo" width="280">
+				<nav>
+					<div class="navbar">
+						
+						<a class="active" href="{% url 'core:Index' %}"><i class="fa fa-fw fa-home"></i> Inicio</a> 
+						<a class="active" href="{% url 'core:listado-productos' %}"><i class="fas fa-shopping-bag"></i> Productos</a> 
+                        {% if perms.core.add_marca %} 
+						<a href="{% url 'core:listar-productos' %}"><i class="fas fa-tools"></i> <u> Gestionar Productos</u></a>
+                        {% endif %}
+					
+							
+							<a href="{% url 'core:carro' %}" class="anavbar"><span style="font-size: 15px; background-color: red; padding-right: 5px;padding-left: 5px; color: white;">0 </span><i class="fas fa-shopping-cart"></i><b class="textonav" style="font-size: 15px;">Carrito de compras</b></i></a>	
+							
+						  
+						
+						
+						{% if user.is_authenticated %}
+						<a href="{% url 'logout' %}" class="anavbar"><i class="fas fa-user-times"></i><b class="textonav">Cerrar sesión</b></i></a>	
+						<a href="#" >@{{ user.first_name}}</a>
+						{% else %}
+						<a href="{% url 'login' %}" class="anavbar"><i class="fas fa-user-tie"></i><b class="textonav">Iniciar sesión</b></i></a>
+						{% endif %}
+						   
+					</div>
+				</nav>
+			</div>
+		</header>
+	</section>
+	
+	<div class="contenido">
+		{% if messages %}
+			{% for m in messages %}
+				<script>
+					Swal.fire({
+						"title": "{{m}}",
+						"position":"top-end",	
+						"showConfirmButton": false,
+						"timer": 1000,
+						"icon": "success",
+						
+					})
+				</script>
+			{% endfor %}
+		{% endif %}
+     
+
+
+
+        <main>
+            <div class="container">
+        
+              
+        
+              <!--Section: Products v.3-->
+              <section class="text-center mb-4">
+        
+                <!--Grid row-->
+                <div class="row wow fadeIn">
+                 <!--Grid column-->
+                 <div class="table-responsive text-nowrap">
+        
+                    <table class="table" style="z-index: 999;">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>  
+                          <th scope="col">Nombre</th>
+                          <th scope="col">Precio</th>
+                          <th scope="col">Cantidad</th>
+                          <th scope="col">Total</th>
+                          
+                        </tr>
+                      </thead>
+                      <tbody>
+                      
+                     
+                        
+                        
+                        <tr>
+                          <td colspan='5'></td>
+                        </tr>
+                        <tr>
+                          <td colspan='5'></td>
+                        </tr>
+                        <tr>
+                          <td colspan='5'></td>
+                        </tr>
+                        <tr>
+                            <td colspan='5'>Tu carrito está vacío</td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                  <a href="{% url 'core:listado-productos' %}" class="btn btn-primary float-right">Seguir comprando</a>
+                              </td>
+                        </tr>
+                     
+                      
+        
+                      </div>
+                    
+                     
+                      
+                    
+                
+                      
+        
+                      </tbody>
+                    </table>
+                    <div style="height: 300px;"></div>
+                  </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </main>
+
+
+    </div>
+
+	<footer>
+		<p> &copy; Todos los derechos reservados.</p>
+	</footer>
+
+</body>
+</html>

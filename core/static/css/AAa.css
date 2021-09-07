@@ -1,0 +1,24 @@
+.VERTexto{
+    display: block;
+    width: 60%;
+    margin: auto;
+    display: block;
+    
+
+}
+.ver{
+    display: block;
+    background: red;
+    font-size: 30px;
+}
+
+.verBR{
+    display: block;
+}
+
+
+
+
+.Invisible{
+    display: none;
+}

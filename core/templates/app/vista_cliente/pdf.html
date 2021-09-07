@@ -1,0 +1,106 @@
+
+{% load static %}
+
+{% load humanize %}
+<link rel="icon" href="{% static 'img/iconos/Icono.png' %}">
+<title>Boleta electrónica para @ </title>
+
+<main style="font-size: 15px;">
+    <div class="container">
+        
+            <img class="img" src="https://i.imgur.com/l0weCds.png" alt="Mi logo" width="40000">
+            
+        
+      <br><br><br><br><br><br>
+     
+      <!--Section: Products v.3-->
+      <section class="text-center mb-4">
+
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+         <!--Grid column-->
+         <div class="table-responsive text-nowrap">
+          {% for u in object.user.all %}
+          {{u.user.first_name}}
+          {% endfor %}
+            <table class="table" >
+              <thead>
+                <tr style="background-color: black; color: white; padding-top: 4px;">
+                  <th>#</th>  
+                  <th>Nombre</th>
+                  <th>Precio</th>
+                  <th>Cantidad</th>
+                  <th>Total</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+              {% for order_producto in object.productos.all %}
+                <tr style="background-color: lightslategray; color: white; padding-top: 5px;padding-bottom: 5px;">
+                  <th scope="row">{{ forloop.counter }}</th>
+                  <th>{{ order_producto.producto.nombre }}</th>
+                  <th>${{ order_producto.producto.precio |intcomma}}</th>
+                  <th>
+                    <a href="{% url 'core:remove-single-from-cart' order_producto.producto.slug %}"><i class="fas fa-minus mr-2"></i></a>
+                     {{ order_producto.cantidad }} 
+                     <a href="{% url 'core:add-single-to-cart' order_producto.producto.slug %}"><i class="fas fa-plus-square ml-2"></i></a>
+                  </th>
+                  
+                  <th>${{ order_producto.total_a_pagar |intcomma }}</th>
+                 
+                </tr>
+                
+                {% empty %}
+               
+                <tr>
+                    <td colspan='5'>Tu carrito está vacío</td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                          <a href="{% url 'core:listado-productos' %}" class="btn btn-primary float-right">Seguir comprando</a>
+                      </td>
+                </tr>
+              {% endfor %}
+
+              
+
+              </div>
+              {% if object.get_total %}
+              <tr></tr>
+              <tr></tr>
+              <tr></tr>
+              <tr></tr>
+              <tr></tr>
+              <tr></tr>
+              <tr></tr>
+              <tr></tr>
+              <tr></tr>
+              
+              
+              
+              <tr style="background-color: lightgray; padding-top: 4px;">
+                  <td >Total a pagar:</td>
+                  <td><td><td></td></td></td>
+                  
+                  <th style="background-color: black; color: white;">${{ object.get_total  }}</th>
+              </tr>
+              
+             
+              {% endif %}
+              
+
+              </tbody>
+            </table>
+            <div style="height: 300px;"></div>
+          </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <footer >
+        <img class="img" src="https://i.imgur.com/MysP5fv.png" alt="Mi logo" width="40000">
+	</footer>
+  </main>
+
+
+

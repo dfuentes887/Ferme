@@ -1,0 +1,84 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block contenido %}
+<section id="portada">	
+	<div>
+		<h1><strong>Diego's Plantilla
+			<div class="text-primary">aaa</div>
+		</strong></h1>
+	</div>
+</section>
+
+<hr id="about">
+
+<section class="sobre">
+	<div>
+		<center><img src="{% static 'img/propuesta.png' %}" alt="Icono de propuesta"></center>
+		<h2 class="">Nuestra Propuesta</h2><br>
+		<p class="">Queremos que las personas y las organizaciones descansen sus preocupaciones con nosotros. Somos una consultora especializada en asesorar a personas en materia de <strong>Empleabilidad</strong>, brindando herramientas que mejoren sus posibilidades de insertarse rápidamente en el mercado laboral. A su vez, ofrecemos a organizaciones servicios de <strong>Reclutamiento y Selección</strong> completos, además de elaboración y diseño de <strong>Perfiles de Cargo</strong>.
+		Como consultora, nos comprometemos a darles las herramientas a cada individuo para que pueda ser la mejor versión de sí mismo, como a su vez, proveer a las empresas del mejor capital humano disponible.</p>
+	</div>
+</section>
+
+<hr id="servicios">
+
+<section>
+	<h2 class="tiserv">Servicios</h2>
+	<div class="services">
+		<div class="serv">
+			<img src="{% static 'img/asesoria.png' %}" alt="Icono Asesoria Empleabilidad">
+			<h3>Confiabilidad</h3>
+			<p>Tenemos una confianza increíble con nuestra empleabilidad. Entregamos un servicio en excelencia de condiciones para nuestros diferentes servicios.</p>
+		</div>
+			
+		<div class="serv">
+			<img src="{% static 'img/perfil.png' %}" alt="Icono Perfiles de Cargo">
+			<h3>Nosotros</h3>
+			<p>Construimos una empresa a partir del cargo que puedan ajustarse a los requerimientos necesarios para que esta salga adelante, incorporando a su vez, los elementos propios que hacen única a esta organización, con el fin de crear la compañía perfecta tanto para nuestros empleados como clientes.</p>
+		</div>
+			
+		<div class="serv">
+			<img src="{% static 'img/rys.png' %}" alt="Icono Reclutamiento y Seleccion">
+			<h3>Reclutamiento y Selección</h3>
+			<p>Realizamos procesos de reclutamiento y selección completos, desde el levantamiento o revisión del perfil del cargo, publicación, recepción de currículums y entrevista por competencias, con el propósito de asegurarnos de entregar los mejores candidatos a la organización para su decisión final.</p>
+		</div>
+		<div class="serv">
+			<img src="{% static 'img/productos2.png' %}" alt="Icono Productos">
+			<h3>Productos</h3>
+			<p>.</p>
+		</div>
+	</div>
+</section>
+
+<hr id="contacto">
+
+<section>
+	<div class="contact">
+		<h2 class="altura">Contacto</h2>
+		
+		<div class="imgtextcont">
+			<div class="cimg">
+				<img src="{% static 'img/iconos/mail.png' %}" alt="Nuestro Correo Electronico">
+			</div>
+			<div class="ctxt">
+				<p>contacto@diego.cl</p>
+			</div>
+		</div>
+		<div class="imgtextcont">
+			<div class="cimg">
+				<img src="{% static 'img/iconos/whatsapp.png' %}" alt="Nuestro WhatsApp">
+			</div>
+			<div class="ctxt">
+				<p>+56 9 7123 5125</p>
+			</div>
+		</div>
+		<div class="rrss">
+			<a href="#" target="_blank"><img src="{% static 'img/iconos/instagram.png' %}" alt="Enlace a Instagram"></a>
+			<a href="#" target="_blank"><img src="{% static 'img/iconos/linkedin.png' %}" alt="Enlace a LinkedIn"></a>
+			<a href="#" target="_blank"><img src="{% static 'img/iconos/facebook.png' %}" alt="Enlace a Facebook"></a>
+		</div>
+	</div>
+</section>
+
+<hr>
+{% endblock %}

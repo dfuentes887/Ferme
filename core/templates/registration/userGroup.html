@@ -1,0 +1,150 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block contenido %}
+{% load humanize %}
+
+{% load crispy_forms_tags %}
+  
+
+
+{% block js %}
+<script>
+    function eliminar_grupo(id, name){
+        Swal.fire({
+            "title":"¿Estás seguro?",
+            "text":"Esta acción tendrá consecuencias irreparables.",
+            "icon":"question",
+            "showCancelButton":true,
+            "cancelButtonText":"No, cancelar.",
+            "confirmButtonText":"Sí , eliminar",
+            "confirmButtonColor": "darkred",
+
+        })
+        .then(function(result){
+            if(result.isConfirmed){
+                window.location.href = "/delete-grupo/"+id+"/"+name+"/"
+            }
+
+        })
+    }
+</script>
+<script>
+  function Confirmar(){
+    Swal.fire({
+      "title":"¿Estás seguro de cerrar sesión?",
+      "text":"Una vez cerrada la sesión podrá volver a iniciar.",
+      "icon":"question",
+      "showCancelButton":true,
+      "cancelButtonText":"No, cancelar.",
+      "confirmButtonText":"Sí , cerrar sesión",
+      "confirmButtonColor": "red",
+
+    })
+    .then(function(result){
+      if(result.isConfirmed){
+        window.location.href = "{% url 'logout'%}"
+      }
+
+    })
+  }
+</script>
+{% endblock %}
+
+
+
+
+
+<main>
+    
+    <div class="container">
+
+      
+
+      <!--Section: Products v.3-->
+      
+      <section class="text-center mb-4">
+
+        <!--Grid row-->
+        <br><br>
+        <div class="row wow fadeIn">
+         <!--Grid column-->
+        
+  
+         <div class="center">
+                        
+
+            <h2 > <u>Listado de <b>grupos </b></u> </h2>
+            <h9>
+                {{user.username}}
+
+            </h9>
+            <form action="{% url 'core:userGroup_add' id=id  %}" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-group">
+                  <div class="col-md-6">
+                  <select name="gname" id="gname" class="form-control form-control-lg" data-placeholder= "Escoja una opción..." style="width: 210%;">
+                      {% for i in group   %}
+                      <option class="custom-select" value="{{i.name}}">{{i.name}}</option>
+                      {% endfor %}
+                      {% for i in users   %}
+                      {{i.username}}
+                      {% endfor %}
+
+                  </select>
+
+              </div>
+              <div class="col-md-6">
+
+              
+             
+              
+          </div>
+      </div>
+
+                <div style="float: right;">
+                  <button type="submit" class="btn btn-outline-success">Agregar <b>Grupo</b></button>
+                </div>
+          </form>
+
+            <div class="table-responsive text-nowrap">
+              <br><br><br><br><br>
+                <table class="table" style="z-index: 999; background-color: black; color:white">
+                    
+                  <thead>
+                     
+                    <tr >            
+                        <th style="width: 90%;">Categoría</th>
+                        <th>Opcns.</th>
+                    </tr>
+                    
+                   
+              
+                
+                
+                {% for g in ugroup %}
+                
+                <tr style="background-color: lightgray; color: black;" >
+                    
+                    <td  ><b>{{ g.name | title }}</b></td>
+                    <td  ><a href="{% url 'core:userGroup_delete' id=id name=g %}"  class="btn btn-succes btn_lista"style="color:red;font-size: 23px;"><i class="fas fa-trash-alt"></i></a></td>
+                   
+                   
+                </tr>
+                {% endfor%}
+                
+    
+                  </tbody>
+                </table>
+                <br><br><br><br><br><br><br><br><br><br>
+              </div>
+          </div>
+        </div>
+         
+        
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+{% endblock %}

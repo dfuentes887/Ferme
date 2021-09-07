@@ -1,0 +1,38 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block contenido %}
+
+
+
+<br><br><br><br>
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-body"></div>
+                    
+                    <h2>Menú de productos</h2>
+                    <h2 style="font-size: 15px;">(Gestión)</h2>
+                    <br><br><br>
+                    <div class="serv">
+                        <a href="{% url 'agregar_producto' %}"><img class="btnmenu_agregar float-left" src="{% static 'img/productos/agregar_producto.png' %}"  alt=""></a>
+                        <a href=""><img class="btnmenu_modificar float-right" src="{% static 'img/productos/modificar_producto.png' %}"  alt=""></a>
+                    </div>
+                    <div class="serv">
+                        <a href="{% url 'listar-productos' %}"><img class="btnmenu_leer float-left" src="{% static 'img/productos/leer_producto.png' %}"  alt=""></a>
+                        <a href=""><img class="btnmenu_eliminar float-right" src="{% static 'img/productos/eliminar_producto.png' %}"  alt=""></a>
+                    </div>
+                        
+                    
+                    
+                </div>
+            </div>
+        </div>
+</div>
+   
+  
+    <br><br><br><br><br><br>
+</div>
+
+
+{% endblock %}

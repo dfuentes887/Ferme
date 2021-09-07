@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Share&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bowlby+One+SC&display=swap');
+body{
+    font-family: 'Share', cursive;
+}
+.titulo {
+    font-family: 'Bowlby One SC', cursive;
+}

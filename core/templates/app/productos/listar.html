@@ -1,0 +1,159 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block contenido %}
+{% load humanize %}
+
+
+
+{% block js %}
+<script>
+    function eliminarProducto(id){
+        Swal.fire({
+            "title":"¿Estás seguro?",
+            "text":"Esta acción tendrá consecuencias irreparables.",
+            "icon":"question",
+            "showCancelButton":true,
+            "cancelButtonText":"No, cancelar.",
+            "confirmButtonText":"Sí , eliminar",
+            "confirmButtonColor": "darkred",
+
+        })
+        .then(function(result){
+            if(result.isConfirmed){
+                window.location.href = "/eliminar-productos/"+id+"/"
+            }
+
+        })
+    }
+</script>
+<script>
+  function Confirmar(){
+    Swal.fire({
+      "title":"¿Estás seguro de cerrar sesión?",
+      "text":"Una vez cerrada la sesión podrá volver a iniciar.",
+      "icon":"question",
+      "showCancelButton":true,
+      "cancelButtonText":"No, cancelar.",
+      "confirmButtonText":"Sí , cerrar sesión",
+      "confirmButtonColor": "red",
+
+    })
+    .then(function(result){
+      if(result.isConfirmed){
+        window.location.href = "{% url 'logout'%}"
+      }
+
+    })
+  }
+</script>
+{% endblock %}
+
+
+
+
+
+
+<main>
+    <div class="container">
+
+      
+
+      <!--Section: Products v.3-->
+      <section class="text-center mb-4">
+
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+         <!--Grid column-->
+         <div class="table-responsive text-nowrap">
+<h4><u>LISTA DE PRODUCTOS</u></h4>
+            <table class="table" style="z-index: 999;">
+              <thead>
+                {% if perms.core.add_producto %} 	
+                <button class="btn btn-outline-primary float-right" type="button" onclick="window.location='{% url 'core:agregar_producto' %}'"><i class="fas fa-hammer"></i> Agregar <b>producto</b></button>
+                {% endif %}
+                {% if perms.core.view_proveedor %} 	
+                <button class="btn btn-outline-danger float-right" type="button" onclick="window.location='{% url 'core:listar_proveedores' %}'"><i class="fas fa-archive"></i> Lista de <b>proveedores</b></button>
+                {% endif %}
+                <br><br>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Marca</th>
+                    <th>Proveedor</th>
+                    <th>Familia</th>
+                    <th>Tipo de Familia</th>
+                    <th>Stock</th>
+                    <th>STOCK CRITICO</th>
+                    <th>Categoría</th>
+                    <th>Slug</th>
+                    <th>Opciones</th>
+                </tr>
+                
+            
+            
+            
+            {% for p in entity %}
+            
+            <tr>
+                
+                <td>
+                  {% if p.fechaVenc == null %}
+                              {{p.proveedor |make_list|slice:'0:3'|join:''}}{{p.tipo |make_list|slice:'0:3'|join:''}}00000000{{p.tipoFamilia |make_list|slice:'0:3'|join:''}}
+                  {% else %}    
+                               {{p.proveedor |make_list|slice:'0:3'|join:''}}{{p.tipo |make_list|slice:'0:3'|join:''}}{{p.fechaVenc | date:'dmY'}}{{p.tipoFamilia |make_list|slice:'0:3'|join:''}}
+                  {% endif %}
+                </td>
+             
+                <td>{{ p.nombre | title }}</td>
+                <td>${{ p.precio | intcomma }}</td>
+                <td>{{ p.marca | title }}</td>
+                <td>{{p.proveedor |make_list|slice:'3:'|join:''}}</td>
+                <td>{{p.tipo}}</td>
+                <td>{{p.tipoFamilia |make_list|slice:'3:'|join:''}}</td>
+                <td>
+                    {% if p.stock > p.stockCritico %}
+                    <span style="background: darkgreen; padding: 5px; border-radius: 30%; color: white;">{{p.stock}}</span>
+                    {% elif 0 >= p.stock %}
+                    <span style="background: darkred; padding: 5px; border-radius: 30%; color: white;">{{p.stock}}</span>
+                    {% else %}
+                    <span style="background: goldenrod; padding: 5px; border-radius: 30%; color: white; ">{{p.stock}}</span>
+                    {% endif %}
+                </td>
+                
+                <td>{{p.stockCritico }}</td>
+                <td >
+                   {{ p.categoria}}
+                </td>
+                
+                <td>{{p.slug | title}}</td>
+                <td>
+                  {% if perms.core.change_producto %} 	
+                    <a href="{% url 'core:modificar-productos' p.id %}" class="btn btn-succes btn_lista" style="color:#0073FF; font-size: 23px;"><i class="fas fa-edit"></i></a>
+                  {% endif %}	
+                    {% if perms.core.delete_producto %} 									
+                    <a href="#" onclick="eliminarProducto({{ p.id }})" class="btn btn-succes btn_lista"style="color:red;font-size: 23px;"><i class="fas fa-trash-alt"></i></a>							
+                    {% endif %}	
+                    
+                </td>
+            </tr>
+            {% endfor%}
+           
+         
+
+              </tbody>
+              
+            </table>
+            {% include 'app/vista_cliente/paginador.html' %}
+          </div>
+          
+          </div>
+        </div>
+      </section>
+    </div>
+
+   
+
+  </main>
+
+{% endblock %}

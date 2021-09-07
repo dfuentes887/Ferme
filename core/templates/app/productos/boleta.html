@@ -1,0 +1,39 @@
+
+{% load static %}
+
+{% load humanize %}
+<link rel="icon" href="{% static 'img/iconos/Icono.png' %}">
+<title>Boleta electrónica para {{order.user}} </title>
+
+<main style="font-size: 15px;">
+    <div class="container">
+        
+            <img class="img" src="https://i.imgur.com/l0weCds.png" alt="Mi logo" width="40000">
+           
+        
+      <br><br><br><br><br><br>
+
+      <!--Section: Products v.3-->
+      <section class="text-center mb-4">
+
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+         <!--Grid column-->
+         <div class="table-responsive text-nowrap">
+             
+         {% for p in productos %}
+         PRODUCTOS: {{p.producto}}
+        {% endfor %}
+            <div style="height: 300px;"></div>
+          </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <footer >
+        <img class="img" src="https://i.imgur.com/MysP5fv.png" alt="Mi logo" width="40000">
+	</footer>
+  </main>
+
+
+

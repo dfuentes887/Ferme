@@ -1,0 +1,144 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block contenido %}
+{% load humanize %}
+
+
+{% block js %}
+<script>
+    function ConfirmarPago(){
+        Swal.fire({
+            "title":"¿Estás seguro?",
+            "text":"Una vez realizado el pago no se podrá ejecutar un chargeback.",
+            "icon":"question",
+            "showCancelButton":true,
+            "cancelButtonText":"No, cancelar.",
+            "confirmButtonText":"Sí , realizar compra",
+            "confirmButtonColor": "green",
+
+        })
+        .then(function(result){
+            if(result.isConfirmed){
+                window.location.href = "{% url 'core:checkout'%}"
+            }
+
+        })
+    }
+</script>
+<script>
+  function Confirmar(){
+    Swal.fire({
+      "title":"¿Estás seguro de cerrar sesión?",
+      "text":"Una vez cerrada la sesión podrá volver a iniciar.",
+      "icon":"question",
+      "showCancelButton":true,
+      "cancelButtonText":"No, cancelar.",
+      "confirmButtonText":"Sí , cerrar sesión",
+      "confirmButtonColor": "red",
+
+    })
+    .then(function(result){
+      if(result.isConfirmed){
+        window.location.href = "{% url 'logout'%}"
+      }
+
+    })
+  }
+</script>
+{% endblock %}
+
+<main>
+    <div class="container">
+
+      
+
+      <!--Section: Products v.3-->
+      <section class="text-center mb-4">
+
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+         <!--Grid column-->
+         <div class="table-responsive text-nowrap">
+
+            <table class="table" style="z-index: 999;">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>  
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Precio</th>
+                  <th scope="col">Cantidad</th>
+                  <th scope="col">Total</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+              
+              {% for order_producto in object.productos.all %}
+            
+                <tr>
+                  <th scope="row">{{ forloop.counter }}</th>
+                  <td>{{ order_producto.producto.nombre }}</td>
+                  <td>${{ order_producto.producto.precio |intcomma}}</td>
+                  <td>
+                    <a href="{% url 'core:remove-single-from-cart' order_producto.producto.slug %}"><i class="fas fa-minus mr-2"></i></a>
+                     {{ order_producto.cantidad }} 
+                     <a href="{% url 'core:add-single-to-cart' order_producto.producto.slug %}"><i class="fas fa-plus-square ml-2"></i></a>
+                  </td>
+                  
+                  <td>${{ order_producto.total_a_pagar |intcomma }}</td>
+                 
+                </tr>
+                
+                {% empty %}
+                <tr>
+                  <td colspan='5'></td>
+                </tr>
+                <tr>
+                  <td colspan='5'></td>
+                </tr>
+                <tr>
+                  <td colspan='5'></td>
+                </tr>
+                <tr>
+                    <td colspan='5'>Tu carrito está vacío</td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                          <a href="{% url 'core:listado-productos' %}" class="btn btn-primary float-right">Seguir comprando</a>
+                      </td>
+                </tr>
+              {% endfor %}
+              
+
+              </div>
+              {% if object.get_total %}
+              <tr style="background: lightgray;">
+                  <td >Total a pagar:</td>
+                  <td><td><td></td></td></td>
+                  <td style="background: black; color: white;">${{ object.get_total |intcomma  }}</td>
+              </tr>
+              
+              <tr>
+                  <td colspan="5">
+                        <a href="#" onclick="ConfirmarPago()" class="btn btn-warning float-right ml-2">Proceder al pago</a>
+                        <a href="{% url 'core:listado-producto' %}"  class="btn btn-primary float-right">Seguir comprando</a>
+                       
+                    </td>
+              </tr>
+              {% endif %}
+              
+
+              </tbody>
+            </table>
+            <div style="height: 300px;"></div>
+          </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+
+  {% endblock %}
+
+

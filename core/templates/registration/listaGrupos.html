@@ -1,0 +1,96 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block contenido %}
+{% load humanize %}
+
+{% load crispy_forms_tags %}
+  
+
+<script>
+  function eliminarGrupo(id){
+      Swal.fire({
+          "title":"¿Estás seguro?",
+          "text":"Esta acción tendrá consecuencias irreparables.",
+          "icon":"question",
+          "showCancelButton":true,
+          "cancelButtonText":"No, cancelar.",
+          "confirmButtonText":"Sí , eliminar",
+          "confirmButtonColor": "darkred",
+
+      })
+      .then(function(result){
+          if(result.isConfirmed){
+              window.location.href = "/eliminar-grupo/"+id+"/"
+          }
+
+      })
+  }
+</script>
+
+
+
+
+
+
+<main>
+    
+    <div class="container">
+
+      
+
+      <!--Section: Products v.3-->
+      
+      <section class="text-center mb-4">
+
+        <!--Grid row-->
+        
+        <div class="row wow fadeIn">
+         <!--Grid column-->
+
+          
+         
+         <div class="table-responsive text-nowrap">
+          <br><br><br><br><br>
+          <h4><u>LISTADO DE GRUPOS</u></h4>
+          <div style="float: right;">
+            <button type="button" onclick="location.href='{% url 'core:groups-add' %}'" class="btn btn-outline-success"><i class="fas fa-cog"></i> Agregar <b>Grupo</b></button>
+          </div>
+            <table class="table" style="z-index: 999; background-color: black; color:white">
+                
+              <thead>
+                <tr >            
+                    
+                    <th>Nombre</th>
+                    <th>Herramientas</th>
+                </tr>
+                
+               
+          
+            
+            
+            {% for g in group %}
+            
+            <tr style="background-color: lightgray; color: black;" >
+               
+                <td style=" border-bottom: 1px solid black; width: 60%; border-left: 1px solid black;" >{{ g.name | title }}</td>
+                
+                <td style=" border-bottom: 1px solid black; width: 10%; border-left: 1px solid black;">
+                  
+                  <a href="{% url 'core:listaGrupos_change' g.id %}" class="btn btn-succes btn_lista"style="color:green;font-size: 23px;"><i class="fas fa-edit"></i></a>
+                  <a href="#" onclick="eliminarGrupo({{ g.id }})" class="btn btn-succes btn_lista"style="color:red;font-size: 23px;"><i class="fas fa-trash-alt"></i></a>
+              </td>
+            </tr>
+            {% endfor%}
+            
+
+              </tbody>
+            </table>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+          </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+{% endblock %}

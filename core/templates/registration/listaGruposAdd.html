@@ -1,0 +1,46 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block contenido %}
+{% load crispy_forms_tags %}
+
+
+
+
+
+
+    
+    <div class="container">
+<br><br><br>
+        <div class="row">
+            <div class="col-12 col-md-6 offset-md-3">
+                <br><br><br>
+                <div class="card">
+                    <div class="card-body">
+
+                        
+                        <h2>Agregar grupos</h2>
+                        <br><br><br>
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            {{form | crispy}}
+
+                            
+                           
+                            
+
+                            <input type="submit" value="Agregar" class="btn btn-succes float-right loginbutton">   
+                        </form>
+
+                     
+                    </div>
+                    
+                   
+                </div>
+                <br><br>
+                <br><br>
+            </div>
+        </div>
+        <br><br><br><br><br>
+    </div>
+
+{% endblock %}

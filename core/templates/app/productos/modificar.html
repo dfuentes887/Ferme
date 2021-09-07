@@ -1,0 +1,309 @@
+{% extends 'app/base.html' %}
+{% block contenido %}
+
+{% load crispy_forms_tags %}
+
+
+
+<main class=" pt-4">
+    <div class="container wow fadeIn">
+
+      <!-- Heading -->
+      <h2 class="my-5 h2 text-center">Modificar producto </h2>
+
+      <!--Grid row-->
+      <div class="row">
+
+        <!--Grid column-->
+        <div class="col-md-8 mb-4">
+
+          <!--Card-->
+          <div class="card">
+
+            <!--Card content-->
+            <form class="card-body" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+
+            <!--Grid row-->
+            <div class="row">
+
+              <!--Grid column-->
+              <div class="col-md-6 mb-2">
+
+                <!--firstName-->
+                <div class="md-form ">
+                  {{form.nombre | as_crispy_field}}
+                </div>
+
+              </div>
+              <!--Grid column-->
+
+              <!--Grid column-->
+              <div class="col-md-6 mb-2">
+
+                <!--lastName-->
+                <div class="md-form">
+                  {{form.precio | as_crispy_field}}
+                </div>
+
+              </div>
+              <!--Grid column-->
+
+            </div>
+            <!--Grid row-->
+
+            <!--Username-->
+            {{form.descripcion | as_crispy_field}}
+
+            <!--email-->
+            <div class="md-form mb-5">
+              
+            </div>
+
+            <!--address-->
+            <div class="md-form mb-5">
+              {{form.categoria | as_crispy_field}}
+            </div>
+
+            <!--address-2-->
+            <div class="md-form mb-5">
+              <button class="btn btn-primary float-right" onclick="window.location='{% url 'core:subir_archivo' %}'" type="button">Añadir nueva marca <i class="fas fa-plus"></i></button>
+                  {{form.marca | as_crispy_field}}
+            </div>
+
+            <!--Grid row-->
+            <div class="row">
+
+              <!--Grid column-->
+              <div class="col-lg-4 col-md-12 mb-4">
+
+                  {{form.tipo | as_crispy_field}}
+                
+
+              </div>
+              <!--Grid column-->
+
+              <!--Grid column-->
+              <div class="col-lg-4 col-md-6 mb-4">
+
+                  {{form.tipoFamilia | as_crispy_field}}
+
+              </div>
+              <!--Grid column-->
+
+              <!--Grid column-->
+              <div class="col-lg-4 col-md-6 mb-4">
+
+                  {{form.proveedor | as_crispy_field}}
+
+              </div>
+              <!--Grid column-->
+
+            </div>
+            <!--Grid row-->
+            <div class="row">
+
+              <!--Grid column-->
+              <div class="col-lg-4 col-md-12 mb-4">
+
+                  {{form.slug | as_crispy_field}}
+                
+
+              </div>
+              <!--Grid column-->
+
+              <!--Grid column-->
+              <div class="col-lg-4 col-md-6 mb-4">
+
+                  {{form.stock | as_crispy_field}}
+
+              </div>
+              <!--Grid column-->
+
+              <!--Grid column-->
+              <div class="col-lg-4 col-md-6 mb-4">
+
+                  {{form.stockCritico | as_crispy_field}}
+
+              </div>
+              <!--Grid column-->
+              <div class="col-md-12 mb-2">
+
+              
+                  {{form.imagen | as_crispy_field}}
+                  
+                
+              </div>
+
+              <div class="col-md-12 mb-2">
+
+                <!--firstName-->
+              
+                  {{form.fechaVenc | as_crispy_field}}
+                  
+                
+              </div>
+
+             
+
+            </div>
+
+            <hr class="mb-4">
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Confirmar cambios.</button>
+            <button class="btn btn-danger btn-lg btn-block" type="reset">Cancelar cambios.</button>
+          </form>
+
+        </div>
+        <!--/.Card-->
+
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-md-4 mb-4">
+
+        <!-- Heading -->
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          
+          <span class="badge badge-secondary badge-pill center " style="background: #DD3545;">Tipo de familia</span>
+        </h4>
+
+        <!-- Cart -->
+        <style>
+          .dropbtn {
+            background: white;
+            color: #4CAF50;;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 7%;
+            border-color: #4CAF50;
+            border-style: solid;
+          }
+          
+          .dropdown {
+            position: relative;
+            display: inline-block;
+          }
+          
+          .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+          }
+          
+          .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+          }
+          
+          .dropdown-content a:hover {background-color: #f1f1f1}
+          
+          .dropdown:hover .dropdown-content {
+            display: block;
+          }
+          
+          .dropdown:hover .dropbtn {
+            background-color: #4CAF50;;
+            color:white;
+          }
+          </style>
+        <ul class="list-group mb-6 z-depth-1">
+          <div class="input-group">
+          <input type="search" class="form-control">
+          <button type="button " class="btn btn-outline-danger">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+            <br>
+
+          <div class="dropdown">
+              <button class="dropbtn">Categoría</button>
+              <div class="dropdown-content">
+              <a href="#">Herramientas</a>
+              <a href="#">Indumentaria</a>
+              <a href="#">Iluminación</a>
+              <a href="#">Materiales</a>
+              <a href="#">Maderas</a>
+
+              </div> 
+            </div>
+           
+           
+            {% for t in tipo %}
+            
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <h6 class="my-0">{{ t.nombre }}</h6>
+              <small >{{t.categoria}}</small>
+              
+              
+            </div>
+            <span style="background: #DD3545; padding: 5px; color: white;">{{t.tipo}}</span>
+          </li>
+          {% endfor %}
+          
+        </ul>
+        <!-- Cart -->
+        <br><br>
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          
+          <span class="badge badge-secondary badge-pill center " style="background: #DD3545;">Proveedores</span>
+        </h4>
+        <ul class="list-group mb-6 z-depth-1">
+          <div class="input-group">
+          <input type="search" class="form-control">
+          <button type="button " class="btn btn-outline-danger">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+            <br>
+
+          <div class="dropdown">
+              <button class="dropbtn">Categoría</button>
+              <div class="dropdown-content">
+              <a href="#">Link 1</a>
+              <a href="#">Link 2</a>
+              <a href="#">Link 3</a>
+              </div> 
+            </div>
+           
+           
+            {% for p in proveedores %}
+            
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <h6 class="my-0"style=" padding: 5px; ">{{ p.nombre }}</h6>
+              
+              
+              
+            </div>
+            <h6 class="my-0 " style="background: #DD3545; padding: 5px; color: white;">{{ p.categoria }}</h6>
+            
+          </li>
+          {% endfor %}
+          
+        </ul>
+        <!-- Cart -->
+
+        <!-- Promo code -->
+       
+        <!-- Promo code -->
+
+      </div>
+      <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+
+  </div>
+</main>
+<!--Main layout-->
+
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block contenido %}
+{% load humanize %}
+
+
+
+{% block js %}
+<script>
+    function eliminarProveedor(id){
+        Swal.fire({
+            "title":"¿Estás seguro?",
+            "text":"Esta acción tendrá consecuencias irreparables.",
+            "icon":"question",
+            "showCancelButton":true,
+            "cancelButtonText":"No, cancelar.",
+            "confirmButtonText":"Sí , eliminar",
+            "confirmButtonColor": "darkred",
+
+        })
+        .then(function(result){
+            if(result.isConfirmed){
+                window.location.href = "/eliminar-proveedores/"+id+"/"
+            }
+
+        })
+    }
+</script>
+
+{% endblock %}
+
+
+
+
+
+
+<main>
+    <div class="container">
+
+      
+
+      <!--Section: Products v.3-->
+      <section class="text-center mb-4">
+
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+         <!--Grid column-->
+         <div class="table-responsive text-nowrap">
+
+            <table class="table" style="z-index: 999;">
+              <thead>
+                <button class="btn btn-outline-primary float-right" type="button" onclick="window.location='{% url 'core:agregar_producto' %}'"><i class="fas fa-hammer"></i> Agregar <b>producto</b></button>
+                <button class="btn btn-outline-danger float-right" type="button" onclick="window.location='{% url 'core:agregar_proveedores' %}'"><i class="fas fa-archive"></i> Agregar <b>proveedor</b></button>
+                <tr>
+                    
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>E-Mail</th>
+                    <th>Rubro</th>
+                    <th>Categoría de proovedor</th>
+                    
+                    <th>Opciones</th>
+                </tr>
+                
+            
+            
+            
+            {% for p in proveedores %}
+            
+            <tr>
+                
+                <td>{{ p.nombre | title }}</td>
+                <td>{{ p.telefono }}</td>
+                <td>{{ p.correo | title }}</td>
+                <td>{{ p.rubro }}</td>
+                <td>{{ p.categoria | title }}</td>
+                
+                <td>
+                    <a href="{% url 'core:modificar_proveedores' p.id %}" class="btn btn-succes btn_lista" style="color:#0073FF; font-size: 23px;"><i class="fas fa-edit"></i></a>
+                    <a href="#" onclick="eliminarProveedor({{ p.id }})" class="btn btn-succes btn_lista"style="color:red;font-size: 23px;"><i class="fas fa-trash-alt"></i></a>
+                </td>
+            </tr>
+            {% endfor%}
+            {{ user.first_name}}
+
+              </tbody>
+            </table>
+            <div style="height: 300px;"></div>
+          </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+{% endblock %}
